@@ -1,0 +1,20 @@
+{
+    "target": "docker_clojure_build",
+    "type": "RUN",
+    "selector": "source.clojure",
+    "docker_image": "clojure",
+    "docker_image_tag": "latest",
+    "docker_image_exe": "lein run",
+
+    "variants": [
+
+        { "name": "Clojure Leiningen v2.5.0 in Docker Container",
+            "docker_image_tag": "2.5.0"
+        },
+
+        { "name": "Clojure Leiningen v2.4.3 in Docker Container",
+            "docker_image_tag": "2.4.3"
+        },
+    ]
+}
+
