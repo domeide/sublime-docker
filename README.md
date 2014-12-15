@@ -1,11 +1,12 @@
 SublimeDocker
 =============
 
-A Sublime Text package that include some build systems that use [http://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/](Docker Language Stacks). It currently run python scripts and will soon support c/c++ (gcc), clojure, go (golang), hy (hylang), java, node, perl, php, python, rails, and ruby.
+A Sublime Text package that include some build systems that use [http://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/](Docker Language Stacks). It currently build python, ruby, perl, c/c++ (gcc), clojure, go (golang), java, Dockerfile and Fig configuration files.
 
 # Prerequisite
 
 Requires Docker. You can get it here https://get.docker.com/
+Your user [https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access](should belong to the Docker group) to run docker without using `sudo`.
 
 # Installation
 
@@ -13,7 +14,16 @@ Install using [http://wbond.net/sublime_packages/package_control](SublimeText Pa
 
 # Usage
 
-After installing, you will find a new options in `Tools > Build system` of your Sublime menu: **Python in Docker Container**.
+After installing, you will find new options in `Tools > Build system` of your Sublime menu: 
+* **C++ in Docker Container**.
+* **Clojure in Docker Container**.
+* **Dockerfile**.
+* **Fig**.
+* **Go in Docker Container**.
+* **Java in Docker Container**.
+* **Perl in Docker Container**.
+* **Python in Docker Container**.
+* **Ruby in Docker Container**.
 
 ![Build System Menu](images/BuildSystems_SubMenu.PNG "Build System Menu")
 
