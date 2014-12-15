@@ -1,0 +1,22 @@
+{
+    "target": "docker_build",
+    "type": "RUN",
+    "selector": "source.perl",
+    "docker_image": "perl",
+    "docker_image_tag": "latest",
+    "docker_image_exe": "perl",
+
+    "variants": [
+
+        { "name": "Perl v5.20.0 in Docker Container",
+            "docker_image_tag": "latest"
+        },
+
+        { "name": "Perl v6 2014.09 MoarVM in Docker Container",
+            "docker_image":    "pmakholm/perl6",
+            "docker_image_tag": "latest",
+            "docker_image_exe": "perl6"
+        },
+    ]
+}
+
