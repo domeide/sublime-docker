@@ -1,0 +1,21 @@
+{
+    "target": "docker_build",
+    "type": "RUN",
+    "selector": "source.ruby",
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]+)",
+    "docker_image": "ruby",
+    "docker_image_tag": "latest",
+    "docker_image_exe": "ruby",
+
+    "variants": [
+
+        { "name": "Ruby v1.9.3 in Docker Container",
+            "docker_image_tag": "1.9.3"
+        },
+
+        { "name": "Ruby v2.1.5 in Docker Container",
+            "docker_image_tag": "2.1"
+        },
+    ]
+}
+
