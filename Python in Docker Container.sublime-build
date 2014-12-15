@@ -2,6 +2,7 @@
     "target": "docker_build",
     "type": "RUN",
     "selector": "source.python",
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]+)",
     "docker_image": "python",
     "docker_image_tag": "latest",
     "docker_image_exe": "python",
