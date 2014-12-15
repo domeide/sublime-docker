@@ -1,0 +1,21 @@
+{
+    "shell_cmd": "docker build -t sublime-docker-`date +%N` $file_path",
+    "selector": "source.dockerfile",
+    "variants": [
+        { "name": "Dockerfile run in background",
+            "shell_cmd": "docker build -t sublime-docker-`date +%N` $file_path && (docker images -q | head -1) | xargs docker run -P -d | xargs docker port"
+        },
+        { "name": "Dockerfile run in foreground non interactive",
+            "shell_cmd": "docker build -t sublime-docker-`date +%N` $file_path && (docker images -q | head -1) | xargs docker run -P -t --rm"
+        },
+        { "name": "Dockerfile deploy to GAE",
+            "shell_cmd": "echo not implemented yet"
+        },
+        { "name": "Dockerfile deploy to Deis",
+            "shell_cmd": "echo not implemented yet"
+        },
+        { "name": "Dockerfile deploy to OVH",
+            "shell_cmd": "echo not implemented yet"
+        }
+    ]
+}
