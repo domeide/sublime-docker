@@ -1,0 +1,26 @@
+{
+    "shell_cmd": "fig up",
+    "variants": [
+        { "name": "Fig build",
+            "shell_cmd": "fig build"
+        },
+        { "name": "Fig kill",
+            "shell_cmd": "fig kill"
+        },
+        { "name": "Fig ports",
+            "shell_cmd": "fig ports"
+        },
+        { "name": "Fig rm",
+            "shell_cmd": "fig rm"
+        },
+        { "name": "Fig stop",
+            "shell_cmd": "fig stop"
+        },
+        { "name": "Fig restart",
+            "shell_cmd": "fig restart"
+        },
+        { "name": "Fig ps",
+            "shell_cmd": "fig ps"
+        },
+    ]
+}
