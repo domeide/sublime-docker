@@ -1,0 +1,28 @@
+{
+    "target": "docker_java_build",
+    "type": "RUN",
+    "selector": "source.java",
+    "docker_image": "java",
+    "docker_image_tag": "latest",
+
+    "variants": [
+
+        { "name": "Java v1.7.0_65 in Docker Container (RUN)",
+            "docker_image_tag": "latest",
+            "type": "RUN"
+        },
+
+        { "name": "Java v1.7.0_65 in Docker Container (BUILD)",
+            "docker_image_tag": "latest",
+            "type": "BUILD"
+        },
+
+        { "name": "[TODO] Android SDK in Docker Container",
+            "docker_image": "android-sdk-TODO",
+            "docker_image_tag": "latest",
+            "type": "BUILD"
+        },
+
+    ]
+}
+
