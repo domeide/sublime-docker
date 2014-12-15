@@ -1,0 +1,21 @@
+{
+    "target": "docker_build",
+    "type": "RUN",
+    "selector": "source.go",
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]+)",
+    "docker_image": "golang",
+    "docker_image_tag": "latest",
+    "docker_image_exe": "go run",
+
+    "variants": [
+
+        { "name": "Go v1.3 in Docker Container",
+            "docker_image_tag": "1.3"
+        },
+
+        { "name": "Go v1.4 in Docker Container",
+            "docker_image_tag": "1.4"
+        },
+    ]
+}
+
