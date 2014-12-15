@@ -1,0 +1,24 @@
+{
+    "target": "docker_build",
+    "type": "RUN",
+    "selector": "source.cpp",
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]+)",
+    "docker_image": "gcc",
+    "docker_image_tag": "latest",
+    "docker_image_exe": "g++",
+
+    "variants": [
+
+        { "name": "C++ - g++ v4.9.2 in Docker Container",
+            "docker_image_tag": "latest"
+        },
+
+        { "name": "C++ - g++ for ARM/Raspberry Pi",
+            "docker_image": "mjbright/raspberry-gcc",
+            "docker_image_tag": "latest",
+            "docker_image_exe": "/rpxc/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-c++"
+        },
+
+    ]
+}
+
