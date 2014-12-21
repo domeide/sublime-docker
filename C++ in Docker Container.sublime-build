@@ -1,7 +1,7 @@
 {
     "target": "docker_build",
     "type": "RUN",
-    "selector": "source.cpp",
+    "selector": "source.c++",
     "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]+)",
     "docker_image": "gcc",
     "docker_image_tag": "latest",
