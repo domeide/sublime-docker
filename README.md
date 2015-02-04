@@ -1,16 +1,16 @@
 SublimeDocker
 =============
 
-A Sublime Text package that include some build systems that use [http://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/](Docker Language Stacks). It currently build python, ruby, perl, c/c++ (gcc), clojure, go (golang), java, Dockerfile and Fig configuration files.
+A Sublime Text package that include some build systems that use [Docker Language Stacks](http://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/). It currently build python, ruby, perl, c/c++ (gcc), clojure, go (golang), java, Dockerfile and Fig configuration files.
 
 # Prerequisite
 
 Requires Docker. You can get it here https://get.docker.com/
-Your user [https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access](should belong to the Docker group) to run docker without using `sudo`.
+Your user [should belong to the Docker group](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) to run docker without using `sudo`.
 
 # Installation
 
-Install using [http://wbond.net/sublime_packages/package_control](SublimeText PackageControl). Otherwise you can also Download/Clone the package and put it in your Packages-directory.
+Install using [SublimeText PackageControl](http://wbond.net/sublime_packages/package_control). Otherwise you can also Download/Clone the package and put it in your Packages-directory.
 
 # Usage
 
