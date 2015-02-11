@@ -17,14 +17,14 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
         self.file_regex = file_regex
         self.file_name = User.dockerutils.getFileName()
         self.file_dir = User.dockerutils.getFileDir()
-        
+    
         if not User.dockerutils.isDockerRunning():
             """
                DISABLING status_message as this is not intrusive enough
                in the case that docker daemon is not installed/running
                sublime.status_message("It seems Docker is not installed on your machine. Try https://get.docker.com/")
             """
-            sublime.error_message("Docker is not running on your machine, do you need to install it? Try https://get.docker.com/")
+            User.dockerutils.isNotRunningMessage()
         elif User.dockerutils.isUnsupportedFileType(self.file_name):
             sublime.status_message("Cannot " + type.lower() + " an unsupported file type")
         else:
@@ -38,7 +38,8 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
             opt_cleanup = " --rm"
             image = " " + self.docker_image + ":" + self.docker_image_tag
             build_cmd =  " " + self.docker_image_exe + " /src/"+self.file_name
-            command = ["docker run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
+            docker_cmd = User.dockerutils.getCommand()
+            command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
         else:
             self.errorMessage("Unknown command: " + self.type)
             return
