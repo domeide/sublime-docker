@@ -5,7 +5,8 @@ A Sublime Text package that include some build systems that use [Docker Language
 
 # Prerequisite
 
-Requires Docker. You can get it here https://get.docker.com/
+Requires Docker. You can get it here https://get.docker.com/.
+
 Your user [should belong to the Docker group](https://docs.docker.com/installation/ubuntulinux/#giving-non-root-access) to run docker without using `sudo`.
 
 # Installation
@@ -15,15 +16,15 @@ Install using [SublimeText PackageControl](http://wbond.net/sublime_packages/pac
 # Usage
 
 After installing, you will find new options in `Tools > Build system` of your Sublime menu: 
-* **C++ in Docker Container**.
-* **Clojure in Docker Container**.
-* **Dockerfile**.
-* **Fig**.
-* **Go in Docker Container**.
-* **Java in Docker Container**.
-* **Perl in Docker Container**.
-* **Python in Docker Container**.
-* **Ruby in Docker Container**.
+- **C++** in Docker Container.
+- **Clojure** in Docker Container.
+- **Dockerfile**.
+- **Fig**.
+- **Go** in Docker Container.
+- **Java** in Docker Container.
+- **Perl** in Docker Container.
+- **Python** in Docker Container.
+- **Ruby** in Docker Container.
 
 ![Build System Menu](images/BuildSystems_SubMenu.PNG "Build System Menu")
 
