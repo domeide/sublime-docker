@@ -1,6 +1,35 @@
 import sublime, sublime_plugin
 import os, re, subprocess
 
+DOCKER_NOT_INSTALLED_LINUX_MSG='''Docker is not installed. 
+
+Install it to use SublimeDocker: open a Terminal and run
+    'curl -sSL https://get.docker.com/ | sh'
+'''
+
+DOCKER_NOT_INSTALLED_OSX_MSG='''Docker is not installed. 
+
+Install it to use SublimeDocker. Visit the following URL for installation instructions:
+
+    https://docs.docker.com/en/latest/installation/
+'''
+
+DOCKER_NOT_RUNNING_LINUX_MSG='''Docker engine is not running. 
+
+Start it to use SublimeDocker: open a Terminal and run 'sudo /etc/init.d/docker start'
+'''
+DOCKER_NOT_RUNNING_OSX_MSG='''Docker engine is not running. 
+
+Start it to use SublimeDocker: open a Terminal and run 'boot2docker up'
+'''
+
+def isDockerInstalled():
+    platform = sublime.platform()
+    if platform == 'linux':
+        return isDockerInstalledOnLinux()
+    if platform == 'osx':
+        return isDockerInstalledOnOSX()
+
 def isDockerRunning():
     platform = sublime.platform()
     if platform == 'linux':
@@ -25,11 +54,21 @@ def isDockerRunningOnOSX():
         os.environ["DOCKER_CERT_PATH"]
         os.environ["DOCKER_TLS_VERIFY"]
     except KeyError:
-        shellinit = subprocess.check_output(["/usr/local/bin/boot2docker", "shellinit"], stderr=None).strip()
-        env = dict(re.findall(r'(\S+)=(".*?"|\S+)', shellinit.decode()))
+        boot2docker_init_cmd = subprocess.check_output(["/usr/local/bin/boot2docker", "shellinit"], stderr=None).strip()
+        env = dict(re.findall(r'(\S+)=(".*?"|\S+)', boot2docker_init_cmd.decode()))
         for key,value in env.items():
             os.environ[key]=value
     return True
+
+def isDockerInstalledOnLinux():
+    if shutil.which('docker') != None :
+        return True
+    return False
+
+def isDockerInsalledOnOSX():
+    if shutil.which('docker') != None and shutil.which('boot2docker') != None :
+        return True
+    return False
 
 def isNotRunningMessage():
     platform = sublime.platform()
@@ -38,13 +77,17 @@ def isNotRunningMessage():
     if platform == 'osx':
         isNotRunningMessageOSX()
 
+def isNotInstalledMessageLinux():
+    sublime.error_message(DOCKER_NOT_INSTALLED_LINUX_MSG)
+
+def isNotInstalledMessageOSX():
+    sublime.error_message(DOCKER_NOT_INSTALLED_OSX_MSG)
+
 def isNotRunningMessageLinux():
-    sublime.error_message("Docker is not running on your machine, do you need to install it? Try https://get.docker.com/")        
+    sublime.error_message(DOCKER_NOT_RUNNING_LINUX_MSG)        
 
 def isNotRunningMessageOSX():
-    sublime.error_message("On OSX platform, environment variables\n" +
-        "\tDOCKER_HOST\n\tDOCKER_CERT_PATH\n\tDOCKER_TLS_VERIFY\n" + 
-        "should be set in order to run Docker client")
+    sublime.error_message(DOCKER_NOT_RUNNING_OSX_MSG)
 
 def isUnsupportedFileType(file_name):
     return False
@@ -79,5 +122,3 @@ def getCommand():
         return "docker"
     if platform == 'osx':
         return "/usr/local/bin/docker"
-
-
