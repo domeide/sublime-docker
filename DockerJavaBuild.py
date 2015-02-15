@@ -1,4 +1,4 @@
-import User.dockerutils
+from . import dockerutils
 import sublime, sublime_plugin
 import os
 
@@ -15,17 +15,17 @@ class DockerJavaBuildCommand(sublime_plugin.WindowCommand):
         self.type = type
         self.docker_image = docker_image
         self.docker_image_tag = docker_image_tag
-        self.file_name = User.dockerutils.getFileName()
-        self.file_dir = User.dockerutils.getFileDir()
+        self.file_name = dockerutils.getFileName()
+        self.file_dir = dockerutils.getFileDir()
         
-        if not User.dockerutils.isDockerRunning():
+        if not dockerutils.isDockerRunning():
             """
                DISABLING status_message as this is not intrusive enough
                in the case that docker daemon is not installed/running
                sublime.status_message("It seems Docker is not installed on your machine. Try https://get.docker.com/")
             """
             sublime.error_message("Docker is not running on your machine, do you need to install it? Try https://get.docker.com/")
-        elif User.dockerutils.isUnsupportedFileType(self.file_name):
+        elif dockerutils.isUnsupportedFileType(self.file_name):
             sublime.status_message("Cannot " + type.lower() + " an unsupported file type")
         else:
             self.executeFile()
@@ -50,8 +50,8 @@ class DockerJavaBuildCommand(sublime_plugin.WindowCommand):
             self.errorMessage("Unknown command: " + self.type)
             return
 
-        User.dockerutils.getView().window().run_command("exec", { 'kill': True })
-        User.dockerutils.getView().window().run_command("exec", {
+        dockerutils.getView().window().run_command("exec", { 'kill': True })
+        dockerutils.getView().window().run_command("exec", {
             'shell': True,
             'cmd': command,
             'working_dir' : self.file_dir
