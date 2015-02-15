@@ -22,13 +22,10 @@ class DockerClojureBuildCommand(sublime_plugin.WindowCommand):
         self.file_dir_relative_to_project = str.join(os.sep, components[components.index("src"):])
         self.file_dir_relative_to_src = str.join(os.sep, components[components.index("src")+1:])
         
-        if not dockerutils.isDockerRunning():
-            """
-               DISABLING status_message as this is not intrusive enough
-               in the case that docker daemon is not installed/running
-               sublime.status_message("It seems Docker is not installed on your machine. Try https://get.docker.com/")
-            """
-            sublime.error_message("Docker is not running on your machine, do you need to install it? Try https://get.docker.com/")
+        if not dockerutils.isDockerInstalled:
+            dockerutils.isNotInstalledMessage()
+        elif not dockerutils.isDockerRunning():
+            dockerutils.isNotRunningMessage()
         elif dockerutils.isUnsupportedFileType(self.file_name):
             sublime.status_message("Cannot " + type.lower() + " an unsupported file type")
         else:
@@ -37,13 +34,14 @@ class DockerClojureBuildCommand(sublime_plugin.WindowCommand):
 
     def executeFile(self):
         if self.type == "RUN":
-            opt_volume =  " -v " + self.project_dir+"/:/leinproject"
+            opt_volume =  " -v \"" + self.project_dir+"/\":/leinproject"
             opt_temporary = " -t"
             opt_cleanup = " --rm"
             opt_working_dir = " -w=\""+ "/leinproject/" + "\""
             image = " " + self.docker_image + ":" + self.docker_image_tag
             build_cmd =  " " + self.docker_image_exe
-            command = ["docker run" + opt_volume + opt_temporary + opt_cleanup + opt_working_dir + image + build_cmd]
+            docker_cmd = dockerutils.getCommand()
+            command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + opt_working_dir + image + build_cmd]
         else:
             self.errorMessage("Unknown command: " + self.type)
             return

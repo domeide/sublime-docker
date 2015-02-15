@@ -18,13 +18,10 @@ class DockerJavaBuildCommand(sublime_plugin.WindowCommand):
         self.file_name = dockerutils.getFileName()
         self.file_dir = dockerutils.getFileDir()
         
-        if not dockerutils.isDockerRunning():
-            """
-               DISABLING status_message as this is not intrusive enough
-               in the case that docker daemon is not installed/running
-               sublime.status_message("It seems Docker is not installed on your machine. Try https://get.docker.com/")
-            """
-            sublime.error_message("Docker is not running on your machine, do you need to install it? Try https://get.docker.com/")
+        if not dockerutils.isDockerInstalled:
+            dockerutils.isNotInstalledMessage()
+        elif not dockerutils.isDockerRunning():
+            dockerutils.isNotRunningMessage()
         elif dockerutils.isUnsupportedFileType(self.file_name):
             sublime.status_message("Cannot " + type.lower() + " an unsupported file type")
         else:
@@ -33,19 +30,21 @@ class DockerJavaBuildCommand(sublime_plugin.WindowCommand):
 
     def executeFile(self):
         if self.type == "RUN":
-            opt_volume =  " -v " + self.file_dir+"/:/src"
+            opt_volume =  " -v \"" + self.file_dir+"/\":/src"
             opt_temporary = " -t"
             opt_cleanup = " --rm"
             image = " " + self.docker_image + ":" + self.docker_image_tag
-            build_cmd =  " " + self.build_exe + " /src/"+self.file_name + " && " + self.run_exe + " " + os.path.splitext(self.file_name)[0]
-            command = ["docker run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
+            build_cmd =  " " + self.build_exe + " \"/src/"+self.file_name + "\" && " + self.run_exe + " " + os.path.splitext(self.file_name)[0]
+            docker_cmd = dockerutils.getCommand()
+            command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
         elif self.type == "BUILD":
             opt_volume =  " -v " + self.file_dir+"/:/src"
             opt_temporary = " -t"
             opt_cleanup = " --rm"
             image = " " + self.docker_image + ":" + self.docker_image_tag
             build_cmd =  " " + self.build_exe + " /src/"+self.file_name
-            command = ["docker run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
+            docker_cmd = dockerutils.getCommand()
+            command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
         else:
             self.errorMessage("Unknown command: " + self.type)
             return

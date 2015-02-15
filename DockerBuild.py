@@ -34,7 +34,7 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
             opt_temporary = " -t"
             opt_cleanup = " --rm"
             image = " " + self.docker_image + ":" + self.docker_image_tag
-            build_cmd =  " " + self.docker_image_exe + " /src/"+self.file_name
+            build_cmd =  " " + self.docker_image_exe + " \"/src/" + self.file_name + "\""
             docker_cmd = dockerutils.getCommand()
             command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + image + build_cmd]
         else:
