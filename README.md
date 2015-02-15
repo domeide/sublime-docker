@@ -16,27 +16,27 @@ Install using [SublimeText PackageControl](http://wbond.net/sublime_packages/pac
 # Usage
 
 After installing, you will find new options in `Tools > Build system` of your Sublime menu: 
-- **C++** in Docker Container.
-- **Clojure** in Docker Container.
-- **Dockerfile**.
-- **Fig**.
-- **Go** in Docker Container.
-- **Java** in Docker Container.
-- **Perl** in Docker Container.
-- **Python** in Docker Container.
-- **Ruby** in Docker Container.
+- C++ in Docker Container.
+- Clojure in Docker Container.
+- Dockerfile.
+- Fig.
+- Go in Docker Container.
+- Java in Docker Container.
+- Perl in Docker Container.
+- Python in Docker Container.
+- Ruby in Docker Container.
 
-![Build System Menu](images/BuildSystems_SubMenu.PNG "Build System Menu")
+![Build System Menu](images/BuildSystems_SubMenu.png "Build System Menu")
 
 Remember, always you can launch the selected build with `Control+B` (Linux/Windows) or `Command+B` (OS X).
 
 You can select specific interpreter/compiler variants with  `Control+Shift+P` (Linux/Windows) or `Command+Shift+P` (OS X)
 and typing build to reduce the selection to the available build variants for the selected build system as shown below for various language build systems.
 
-![Build Variants](images/Python_Menu_BuildSelection_Variants.PNG "Build Variants")
+![Build Variants](images/GO_Menu_BuildSelection_Variants.png "Build Variants")
 
-![Build Variants](images/C++_Menu_BuildSelection_Variants.PNG "Build Variants")
+![Build Variants](images/Java_Menu_BuildSelection_Variants.png "Build Variants")
 
-![Build Variants](images/Java_Menu_BuildSelection_Variants.PNG "Build Variants")
+![Build Variants](images/Dockerfile_Menu_BuildSelection_Variants.png "Build Variants")
 
-![Build Variants](images/Perl_Menu_BuildSelection_Variants.PNG "Build Variants")
+![Build Variants](images/Fig_Menu_BuildSelection_Variants.png "Build Variants")
