@@ -16,7 +16,7 @@ Install it to use SublimeDocker. Visit the following URL for installation instru
 
 DOCKER_NOT_RUNNING_LINUX_MSG='''Docker engine is not running. 
 
-Start it to use SublimeDocker: open a Terminal and run 'sudo /etc/init.d/docker start'
+Start it to use SublimeDocker.
 '''
 DOCKER_NOT_RUNNING_OSX_MSG='''Docker engine is not running. 
 
@@ -42,9 +42,11 @@ def isDockerRunningOnLinux():
           We assume that the path to the daemon which appears in full ps output
           is of the form */bin/docker
     """
-    if len(os.popen("ps -aef | grep '/bin/docker ' | grep -v grep").read().strip()) < 1:
-        return False
-    return True
+    if len(os.popen("ps -aef | grep '/bin/docker ' | grep -v grep").read().strip()) > 0:
+        return True
+    if len(os.popen("ps -aef | grep '/bin/docker-io ' | grep -v grep").read().strip()) > 0:
+        return True
+    return False
 
 def isDockerRunningOnOSX():
     if len(os.popen("ps -aef | grep 'boot2docker' | grep -v grep").read().strip()) < 1:
@@ -122,3 +124,4 @@ def getCommand():
         return "docker"
     if platform == 'osx':
         return "/usr/local/bin/docker"
+
