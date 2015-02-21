@@ -44,7 +44,7 @@ def isDockerRunningOnLinux():
     """
     if len(os.popen("ps -aef | grep '/bin/docker ' | grep -v grep").read().strip()) > 0:
         return True
-    if len(os.popen("ps -aef | grep '/bin/docker-io ' | grep -v grep").read().strip()) > 0:
+    if len(os.popen("ps -aef | grep '/bin/docker.io ' | grep -v grep").read().strip()) > 0:
         return True
     return False
 
