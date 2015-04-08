@@ -36,12 +36,12 @@ class DockerClojureBuildCommand(sublime_plugin.WindowCommand):
         if self.type == "RUN":
             opt_volume =  " -v \"" + self.project_dir+"/\":/leinproject"
             opt_temporary = " -t"
-            opt_cleanup = " --rm"
             opt_working_dir = " -w=\""+ "/leinproject/" + "\""
             image = " " + self.docker_image + ":" + self.docker_image_tag
             build_cmd =  " " + self.docker_image_exe
             docker_cmd = dockerutils.getCommand()
-            command = [docker_cmd + " run" + opt_volume + opt_temporary + opt_cleanup + opt_working_dir + image + build_cmd]
+            command = [docker_cmd + " run" + opt_volume + opt_temporary + ' ' + dockerutils.opt_cleanup + opt_working_dir + image + build_cmd]
+            dockerutils.logDockerCommand(command)
         else:
             self.errorMessage("Unknown command: " + self.type)
             return
@@ -54,4 +54,3 @@ class DockerClojureBuildCommand(sublime_plugin.WindowCommand):
             'file_regex'  : self.file_regex
         })
 
-    

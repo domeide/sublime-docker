@@ -1,5 +1,13 @@
 import sublime, sublime_plugin
 import os, re, subprocess
+import time
+
+#dockerutils.opt_cleanup = ''
+dockerutils.opt_cleanup = '--rm'
+
+# Used by logDockerCommand(command) below:
+#SUBLIME_DOCKER_LOGFILE='/tmp/sublime-docker.log'
+SUBLIME_DOCKER_LOGFILE=None
 
 DOCKER_NOT_INSTALLED_LINUX_MSG='''Docker is not installed. 
 
@@ -124,4 +132,10 @@ def getCommand():
         return "docker"
     if platform == 'osx':
         return "/usr/local/bin/docker"
+
+def logDockerCommand(command):
+    if SUBLIME_DOCKER_LOGFILE != None:
+        with open(SUBLIME_DOCKER_LOGFILE, 'a+') as f:
+            f.write(time.strftime("\n%d/%m/%Y %H:%M:%S ") + str(command))
+            f.close()
 
