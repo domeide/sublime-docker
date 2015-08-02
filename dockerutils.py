@@ -3,7 +3,7 @@ import os, re, subprocess
 import time
 
 #dockerutils.opt_cleanup = ''
-dockerutils.opt_cleanup = '--rm'
+opt_cleanup = '--rm'
 
 # Used by logDockerCommand(command) below:
 #SUBLIME_DOCKER_LOGFILE='/tmp/sublime-docker.log'
