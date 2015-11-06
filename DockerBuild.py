@@ -33,9 +33,8 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
             opt_volume =  " -v \"" + self.file_dir+"/\":/src"
             opt_temporary = " -t"
             image = " " + self.docker_image + ":" + self.docker_image_tag
-            build_cmd =  " " + self.docker_image_exe + " \"/src/" + self.file_name + "\""
             docker_cmd = dockerutils.getCommand()
-            build_cmd = " bash -c 'cd /src; " + build_cmd + "'"
+            build_cmd = self.generateBuildCmd()
             command = [docker_cmd + " run" + opt_volume + opt_temporary + ' ' + dockerutils.opt_cleanup + image + build_cmd]
             dockerutils.logDockerCommand(command)
         else:
@@ -51,3 +50,11 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
         })
 
     
+    def generateBuildCmd(self):
+        cpp_check_list = ["gcc", "g++", "cpp", "c++"]
+        exec_cmd = ""
+        if any(map(lambda x: x in self.docker_image or x in self.docker_image_exe, cpp_check_list)):
+            exec_cmd = "./a.out;"
+        build_cmd =  " " + self.docker_image_exe + " \"/src/" + self.file_name + "\"; "
+        build_cmd = " bash -c 'cd /src; " + build_cmd + exec_cmd + "'"
+        return build_cmd
