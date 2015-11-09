@@ -1,0 +1,26 @@
+{
+    "shell_cmd": "docker-compose up",
+    "variants": [
+        { "name": "Docker-compose build",
+            "shell_cmd": "docker-compose build"
+        },
+        { "name": "Docker-compose kill",
+            "shell_cmd": "docker-compose kill"
+        },
+        { "name": "Docker-compose ports",
+            "shell_cmd": "docker-compose ports"
+        },
+        { "name": "Docker-compose rm",
+            "shell_cmd": "docker-compose rm"
+        },
+        { "name": "Docker-compose stop",
+            "shell_cmd": "docker-compose stop"
+        },
+        { "name": "Docker-compose restart",
+            "shell_cmd": "docker-compose restart"
+        },
+        { "name": "Docker-compose ps",
+            "shell_cmd": "docker-compose ps"
+        },
+    ]
+}
