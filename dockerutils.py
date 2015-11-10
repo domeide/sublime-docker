@@ -1,8 +1,8 @@
 import sublime, sublime_plugin
 import os, re, subprocess
-import time
+import time, shutil
+import os.path
 
-#dockerutils.opt_cleanup = ''
 opt_cleanup = '--rm'
 
 # Used by logDockerCommand(command) below:
@@ -28,7 +28,7 @@ Start it to use SublimeDocker.
 '''
 DOCKER_NOT_RUNNING_OSX_MSG='''Docker engine is not running. 
 
-Start it to use SublimeDocker: open a Terminal and run 'boot2docker up'
+Start it to use SublimeDocker: open a Terminal and run 'docker-machine start $(docker-machine active)' or 'boot2docker up'
 '''
 
 def isDockerInstalled():
@@ -57,6 +57,14 @@ def isDockerRunningOnLinux():
     return False
 
 def isDockerRunningOnOSX():
+    return (
+        (os.path.isfile('/usr/local/bin/boot2docker')  
+            and isBoot2DockerRunning()) or
+        (os.path.isfile('/usr/local/bin/docker-machine')  
+            and isDockerMachineRunning()))
+    
+
+def isBoot2DockerRunning():
     if len(os.popen("ps -aef | grep 'boot2docker' | grep -v grep").read().strip()) < 1:
         return False
     try:
@@ -70,15 +78,37 @@ def isDockerRunningOnOSX():
             os.environ[key]=value
     return True
 
+def isDockerMachineRunning():
+    machine_ls = os.popen("/usr/local/bin/docker-machine ls -q").read().strip()
+    if len(machine_ls) < 1:
+        return False
+    try:
+        os.environ["DOCKER_HOST"]
+        os.environ["DOCKER_CERT_PATH"]
+        os.environ["DOCKER_TLS_VERIFY"]
+        os.environ["DOCKER_MACHINE_NAME"]
+    except KeyError:
+        home_dir = os.path.expanduser('~')
+        dockermachine_init_cmd = subprocess.check_output(
+            "docker-machine -s " + home_dir + "/.docker/machine env default; exit 0", 
+            stderr=subprocess.STDOUT, shell=True, env={"PATH": "/usr/local/bin"}).decode()
+        env = dict(re.findall(r'(\S+)=(".*?"|\S+)', dockermachine_init_cmd))
+        for key,value in env.items():
+            os.environ[key]=value
+    return True
+
 def isDockerInstalledOnLinux():
     if shutil.which('docker') != None :
         return True
     return False
 
 def isDockerInsalledOnOSX():
-    if shutil.which('docker') != None and shutil.which('boot2docker') != None :
-        return True
-    return False
+    if shutil.which('docker') == None:
+        return False
+    if (shutil.which('boot2docker') == None
+        and shutil.which('docker-machine') == None) :
+        return False
+    return True
 
 def isNotRunningMessage():
     platform = sublime.platform()
