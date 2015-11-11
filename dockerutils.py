@@ -94,7 +94,7 @@ def isDockerMachineRunning():
             stderr=subprocess.STDOUT, shell=True, env={"PATH": "/usr/local/bin"}).decode()
         env = dict(re.findall(r'(\S+)=(".*?"|\S+)', dockermachine_init_cmd))
         for key,value in env.items():
-            os.environ[key]=value
+            os.environ[key]=value.strip('"')
     return True
 
 def isDockerInstalledOnLinux():
