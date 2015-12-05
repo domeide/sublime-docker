@@ -1,5 +1,6 @@
 {
     "shell_cmd": "docker-compose up",
+    "working_dir": "${project:file_path}",
     "variants": [
         { "name": "Docker-compose build",
             "shell_cmd": "docker-compose build"
