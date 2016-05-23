@@ -17,8 +17,9 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
         self.file_regex = file_regex
         self.file_name = dockerutils.getFileName()
         self.file_dir = dockerutils.getFileDir()
-    
-        if not dockerutils.isDockerInstalled:
+
+
+        if not dockerutils.isDockerInstalled():
             dockerutils.isNotInstalledMessage()
         elif not dockerutils.isDockerRunning():
             dockerutils.isNotRunningMessage()
@@ -49,7 +50,7 @@ class DockerBuildCommand(sublime_plugin.WindowCommand):
             'file_regex'  : self.file_regex
         })
 
-    
+
     def generateBuildCmd(self):
         cpp_check_list = ["gcc", "g++", "cpp", "c++"]
         exec_cmd = ""
